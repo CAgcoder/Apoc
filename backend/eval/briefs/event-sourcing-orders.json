@@ -1,0 +1,16 @@
+{
+  "slug": "event-sourcing-orders",
+  "brief_text": "We are redesigning our order management system using event sourcing to replace a mutable-state RDBMS model. The new system must support 50,000 orders/day, replay the full event log to rebuild projections, and provide CQRS read models optimized for different query patterns (order status, fulfillment queue, finance reconciliation). The event store must be auditable with immutable history for 7 years.",
+  "checklist": [
+    "R1: The design must specify the event store technology and explain how immutable event history is enforced and retained for 7 years",
+    "R2: The design must describe the projection rebuild mechanism — how read models are rebuilt from the event log and the expected rebuild time at 50,000 orders/day over 7 years",
+    "R3: The design must address CQRS: how the write model (event sourcing) and at least two read models (e.g., order status, finance) are separated and kept in sync",
+    "R4: The design must describe command validation — how invalid state transitions are rejected before events are appended",
+    "R5: The design must address the eventual consistency window between event append and read model update and its impact on user-facing queries",
+    "R6: The design must cover event schema evolution: how new fields or renamed events are handled without breaking existing projections",
+    "R7: The design must specify the snapshotting strategy to avoid unbounded replay time for long-lived order aggregates",
+    "R8: The design must address saga/process-manager coordination for multi-step workflows (e.g., payment → fulfillment → shipping)",
+    "R9: The design must identify the primary operational risk of the event-sourced model versus the prior RDBMS approach",
+    "R10: The design must include a concrete data volume estimate (events/day, storage growth) to validate 7-year retention feasibility"
+  ]
+}

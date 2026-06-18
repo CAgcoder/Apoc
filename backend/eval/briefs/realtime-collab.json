@@ -1,0 +1,16 @@
+{
+  "slug": "realtime-collab",
+  "brief_text": "We are building a real-time collaborative document editor similar to Notion, supporting 50 concurrent editors per document. Edits must converge to a consistent state across all clients with no data loss. Offline editing with sync-on-reconnect is required. The backend must handle 200,000 active documents and persist full edit history for compliance. Target: 100 ms round-trip for collaborative edits under normal network conditions.",
+  "checklist": [
+    "R1: The design must specify the conflict resolution algorithm used (OT, CRDT, or another approach) and justify the choice",
+    "R2: The design must describe how 50 concurrent editors per document are coordinated without a single bottleneck",
+    "R3: The design must address offline editing and the merge strategy when a client reconnects with diverged state",
+    "R4: The design must explain how full edit history is persisted efficiently for 200,000 active documents",
+    "R5: The design must describe the real-time transport layer (WebSocket, SSE, WebRTC) and connection management",
+    "R6: The design must address cursor/presence awareness (showing which user is editing which section)",
+    "R7: The design must cover how the 100 ms round-trip target is achieved and what degrades first under load",
+    "R8: The design must specify the data model for document state and how snapshots or compaction prevent unbounded history growth",
+    "R9: The design must address consistency guarantees: what a user sees immediately vs. after server confirmation",
+    "R10: The design must identify at least two failure modes (e.g., network partition, server crash mid-edit) and their handling"
+  ]
+}

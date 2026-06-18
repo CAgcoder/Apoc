@@ -1,0 +1,16 @@
+{
+  "slug": "cdn-edge-cache",
+  "brief_text": "We need to design a CDN and edge-caching layer for a media streaming platform that serves 4K video segments and thumbnail images globally to 10 million active users. Cache hit rate must exceed 95% for popular content. We need support for geo-blocking, DRM token validation at the edge, and real-time cache purge when content is updated or removed. The design must handle a flash-crowd scenario (a live event that spikes to 500,000 concurrent viewers in 2 minutes).",
+  "checklist": [
+    "R1: The design must specify the CDN topology (PoP count, peering strategy) and explain how 95% cache hit rate is achieved across a long-tail catalog",
+    "R2: The design must address DRM token validation at the edge without routing every request to origin",
+    "R3: The design must describe real-time cache purge propagation — how a content takedown reaches all PoPs within an acceptable SLA",
+    "R4: The design must cover geo-blocking enforcement at the edge and how IP geolocation accuracy limitations are handled",
+    "R5: The design must address the flash-crowd scenario: how 500,000 concurrent viewers ramping in 2 minutes is absorbed without origin overload (thundering herd mitigation)",
+    "R6: The design must describe the origin shield layer and how it protects the origin during cache misses at scale",
+    "R7: The design must specify the cache key strategy for 4K video segments, including how byte-range requests are handled",
+    "R8: The design must address the cost model: egress fees, storage costs at PoPs, and the impact of cache hit rate on total cost",
+    "R9: The design must cover monitoring and anomaly detection for CDN performance (hit rate drops, latency spikes, origin error rates)",
+    "R10: The design must discuss the build-vs-buy decision for the CDN layer and at least one risk of each approach"
+  ]
+}

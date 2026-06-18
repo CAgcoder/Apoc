@@ -1,0 +1,16 @@
+{
+  "slug": "search-recommend",
+  "brief_text": "Our e-commerce platform needs a unified search and recommendation engine for a catalog of 50 million SKUs. Search must support full-text, faceted filtering, and typo tolerance with p99 < 200 ms. Recommendations must include collaborative filtering (users-who-bought), item-item similarity, and real-time personalization based on the current session. The system must support A/B testing of ranking models without a full redeploy.",
+  "checklist": [
+    "R1: The design must specify the search index technology and explain how 50 million SKUs are indexed and kept up-to-date",
+    "R2: The design must address typo tolerance and how fuzzy matching is implemented without sacrificing p99 < 200 ms",
+    "R3: The design must describe the faceted filtering architecture and how high-cardinality facets are handled efficiently",
+    "R4: The design must explain how collaborative filtering (users-who-bought) is computed and served at query time",
+    "R5: The design must address real-time session personalization — how signals from the current session influence ranking before any batch job runs",
+    "R6: The design must describe the A/B testing infrastructure for ranking models and how traffic is split without redeployment",
+    "R7: The design must specify how the catalog index is kept consistent with the product database (near-real-time sync)",
+    "R8: The design must address cold-start for new users and new SKUs with no interaction history",
+    "R9: The design must cover the offline model training pipeline and how new recommendation models are promoted to production",
+    "R10: The design must identify at least one explicit relevance vs. business objective trade-off (e.g., margin promotion vs. pure relevance)"
+  ]
+}

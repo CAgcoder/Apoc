@@ -1,0 +1,16 @@
+{
+  "slug": "iot-fleet",
+  "brief_text": "We need an IoT fleet management platform for 2 million edge devices (industrial sensors) that report telemetry every 10 seconds. The platform must support OTA firmware updates with rollback, device shadow/twin for last-known state, and alert triggering when sensor values breach thresholds. Devices may be offline for up to 72 hours and must sync state on reconnect. The team has AWS infrastructure but is open to managed IoT services.",
+  "checklist": [
+    "R1: The design must address ingesting telemetry from 2 million devices at 10-second intervals (ingest rate calculation and scaling strategy)",
+    "R2: The design must describe the device shadow/twin mechanism — how last-known state is stored and served when the device is offline",
+    "R3: The design must specify the OTA firmware update workflow, including staged rollout and automatic rollback on failure",
+    "R4: The design must address 72-hour offline windows and the reconnect sync strategy without data loss",
+    "R5: The design must describe the threshold alerting system, including how alert rules are defined and evaluated at scale",
+    "R6: The design must cover device identity and authentication (certificate rotation, zero-touch provisioning, or equivalent)",
+    "R7: The design must specify the data retention and tiering strategy for time-series telemetry",
+    "R8: The design must address the command/control path: sending configuration updates or commands to individual devices",
+    "R9: The design must identify the primary cost driver at this scale and propose a mitigation",
+    "R10: The design must discuss at least one trade-off between managed services (e.g., AWS IoT Core) and custom infrastructure"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "ml-feature-store",
+  "brief_text": "Our ML platform needs a centralized feature store to serve features both to offline training jobs and to online inference endpoints. Features must be consistent between training and serving (no training-serving skew). We have ~300 feature definitions across 12 teams, and the online store must serve p99 < 5 ms. The offline store needs to support point-in-time correct joins for training dataset generation.",
+  "checklist": [
+    "R1: The design must explain how training-serving skew is prevented (e.g., shared computation graph or serialized transform registry)",
+    "R2: The design must address point-in-time correct joins for offline training dataset generation",
+    "R3: The design must specify how the online store achieves p99 < 5 ms latency (storage backend, caching layer, or indexing)",
+    "R4: The design must describe the feature registration and versioning workflow for 300+ features across 12 teams",
+    "R5: The design must address backfill — how historical feature values are populated when a new feature is registered",
+    "R6: The design must specify the ingestion path for streaming features (near-real-time updates)",
+    "R7: The design must cover access control: which teams can read/write which feature groups",
+    "R8: The design must identify at least one consistency trade-off between the online and offline stores",
+    "R9: The design must address feature staleness detection and handling in the online path",
+    "R10: The design must include infrastructure cost considerations given the dual-store architecture"
+  ]
+}

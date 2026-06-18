@@ -1,0 +1,16 @@
+{
+  "slug": "data-mesh",
+  "brief_text": "Our organization (8 product teams, 2 data engineering teams) wants to adopt a data mesh architecture to replace a centralized data warehouse owned by a single team. Each product team should own and publish their own data products. We need a self-serve data infrastructure layer, a federated governance model with global data quality standards, and a data catalog where consumers can discover and subscribe to data products. Expected data product count: 60–80 in year one.",
+  "checklist": [
+    "R1: The design must define what constitutes a 'data product' in this context and how ownership boundaries between the 8 product teams are enforced",
+    "R2: The design must describe the self-serve infrastructure layer — what tooling each team gets to publish, version, and monitor their data products without central team involvement",
+    "R3: The design must address federated governance: how global data quality standards are enforced across all teams without a central gatekeeper",
+    "R4: The design must specify the data catalog: how data products are discovered, documented, and subscribed to by consumers",
+    "R5: The design must cover data product versioning and how breaking schema changes are communicated and managed",
+    "R6: The design must address cross-domain joins: how a consumer that needs data from multiple product teams assembles it without tight coupling",
+    "R7: The design must describe the observability model for data products — how SLA compliance (freshness, completeness) is measured and surfaced",
+    "R8: The design must address the transition path from the existing centralized warehouse without a big-bang cutover",
+    "R9: The design must identify the primary organizational risk of data mesh adoption and propose a mitigation",
+    "R10: The design must discuss at least one trade-off between decentralized ownership and the consistency benefits of the prior centralized model"
+  ]
+}

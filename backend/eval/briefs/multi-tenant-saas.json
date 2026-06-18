@@ -1,0 +1,16 @@
+{
+  "slug": "multi-tenant-saas",
+  "brief_text": "We are building the backend for a multi-tenant B2B SaaS analytics platform. Each tenant has isolated data and configurable feature flags. We expect to grow from 50 to 5,000 tenants over 18 months. Tenants on the enterprise tier require data residency guarantees (EU or US only). The platform must support per-tenant custom domains, SSO configuration, and webhook delivery. Tenant onboarding must be self-service and complete within 60 seconds.",
+  "checklist": [
+    "R1: The design must specify the tenancy isolation model (shared schema, schema-per-tenant, or database-per-tenant) and justify the choice for the 50–5,000 tenant growth curve",
+    "R2: The design must address data residency for enterprise tenants — how EU and US data is physically isolated and verified",
+    "R3: The design must describe per-tenant feature flag configuration and how flags are evaluated without per-request database round-trips",
+    "R4: The design must cover per-tenant custom domain routing, including TLS certificate provisioning and renewal",
+    "R5: The design must describe per-tenant SSO configuration (SAML/OIDC) and how it is self-served by the tenant admin",
+    "R6: The design must address webhook delivery: ordering guarantees, retry policy, and how a slow or failed tenant endpoint is isolated from others",
+    "R7: The design must specify the tenant onboarding flow and explain how 60-second self-service provisioning is achieved",
+    "R8: The design must address noisy-neighbor risk at scale — how one tenant's heavy query load is prevented from degrading others",
+    "R9: The design must cover tenant offboarding: data export, deletion, and audit trail requirements",
+    "R10: The design must identify the primary cost scaling risk as tenant count grows to 5,000 and propose a mitigation"
+  ]
+}

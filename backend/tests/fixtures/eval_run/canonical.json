@@ -1,0 +1,1 @@
+{"title": "C", "decisions": [{"id": "AD-01", "decision": "x", "alternatives": "Option Q rejected because slow."}, {"id": "AD-02", "decision": "y", "alternatives": "Option R rejected, too costly."}], "risks": [], "requirements_mapping": []}

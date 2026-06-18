@@ -1,0 +1,16 @@
+{
+  "slug": "streaming-etl",
+  "brief_text": "Our data platform needs a real-time streaming ETL pipeline that ingests CDC events from 15 PostgreSQL databases, transforms them, and delivers clean records to a data warehouse (Snowflake) and a real-time analytics store (ClickHouse). End-to-end latency target is < 30 seconds. The pipeline must handle schema evolution in source tables without pipeline restarts and guarantee exactly-once delivery to both sinks.",
+  "checklist": [
+    "R1: The design must specify the CDC extraction mechanism (Debezium, pglogical, or equivalent) and how it handles replication slot lag under high write load",
+    "R2: The design must address exactly-once delivery to both Snowflake and ClickHouse, including idempotent write semantics",
+    "R3: The design must describe how schema evolution in source tables is detected and propagated without pipeline restarts",
+    "R4: The design must explain how < 30 second end-to-end latency is achieved across the full CDC → transform → sink path",
+    "R5: The design must cover the transformation layer — how business logic transforms are defined, tested, and deployed independently of the pipeline",
+    "R6: The design must address backpressure handling when a sink is slow or temporarily unavailable",
+    "R7: The design must specify the dead-letter queue strategy for malformed or unprocessable records",
+    "R8: The design must cover operational observability: lag monitoring, data freshness SLAs, and alerting",
+    "R9: The design must address initial historical backfill when a new source table is onboarded",
+    "R10: The design must identify at least one trade-off between exactly-once guarantees and pipeline throughput or latency"
+  ]
+}

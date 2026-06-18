@@ -1,0 +1,16 @@
+{
+  "slug": "distributed-cache",
+  "brief_text": "We need a distributed caching layer to reduce database load for a high-traffic social platform (500 million registered users, 50 million DAU). The cache must support user profile reads (hot data for active users), feed pre-computation, and session storage. Read-to-write ratio is approximately 95:5. Cache must handle 1 million RPS at peak with sub-millisecond p99. We need a clear cache invalidation strategy that prevents stale data from appearing in user feeds.",
+  "checklist": [
+    "R1: The design must specify the distributed cache technology and justify it for the 1 million RPS and sub-millisecond p99 requirements",
+    "R2: The design must describe the sharding strategy for 500 million user profiles and how hotspots (celebrity users) are handled",
+    "R3: The design must address feed pre-computation: how feeds are generated, stored in cache, and kept fresh for 50 million DAU",
+    "R4: The design must specify the cache invalidation strategy for user profile updates and explain how stale feed data is avoided",
+    "R5: The design must cover session storage requirements: TTL management, session revocation, and consistency guarantees",
+    "R6: The design must address cache stampede/thundering herd on cold start or after a cache flush",
+    "R7: The design must describe the eviction policy and how it is tuned for the 95:5 read-to-write ratio and hot/cold data distribution",
+    "R8: The design must cover the cache warming strategy when a new node joins or a node fails and rejoins",
+    "R9: The design must address the consistency model between cache and database (write-through, write-behind, or cache-aside) and the implications for each use case",
+    "R10: The design must estimate memory requirements and identify the cost-performance trade-off between in-memory vs. tiered storage"
+  ]
+}

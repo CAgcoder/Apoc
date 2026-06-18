@@ -1,0 +1,16 @@
+{
+  "slug": "auth-sso",
+  "brief_text": "We need a centralized identity and SSO service for 40 internal SaaS applications across 8,000 employees. The service must support SAML 2.0, OIDC, and OAuth 2.0 for application integration, with MFA enforcement for all users. The identity provider must be highly available (99.99% SLA) and support federated identity with external IdPs (Azure AD, Google Workspace). Self-service account recovery and admin-delegated provisioning are required.",
+  "checklist": [
+    "R1: The design must address SAML 2.0, OIDC, and OAuth 2.0 integration and explain how existing apps are onboarded without code changes",
+    "R2: The design must specify how 99.99% availability is achieved, including failover and geographic redundancy",
+    "R3: The design must describe MFA enforcement — how it is applied, which factors are supported, and how enrollment is managed",
+    "R4: The design must cover federation with Azure AD and Google Workspace, including attribute mapping and group sync",
+    "R5: The design must address token lifecycle: issuance, refresh, revocation, and how revocation propagates to downstream services within an acceptable window",
+    "R6: The design must describe self-service account recovery in a way that does not introduce account-takeover vectors",
+    "R7: The design must cover admin-delegated provisioning: how department admins manage users in their own scope without global admin rights",
+    "R8: The design must identify the single biggest availability risk and provide a concrete mitigation",
+    "R9: The design must address session management across 40 applications — how logout from one app propagates (SLO)",
+    "R10: The design must discuss at least one security vs. user-experience trade-off in the MFA or recovery design"
+  ]
+}

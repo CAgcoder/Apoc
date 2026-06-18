@@ -1,0 +1,16 @@
+{
+  "slug": "observability-platform",
+  "brief_text": "We need a centralized observability platform for 200 microservices across 3 environments (dev, staging, prod). The platform must ingest metrics, logs, and traces and correlate them across services. Prod retention: 15 days for traces, 90 days for metrics, 30 days for logs. P99 query latency for dashboards must be < 3 seconds. On-call engineers need actionable alerts with automatic correlation of metrics, logs, and traces for a given incident, not just raw signal.",
+  "checklist": [
+    "R1: The design must specify the data model for correlating traces, metrics, and logs (e.g., trace ID propagation, exemplars) across 200 services",
+    "R2: The design must describe the ingest pipeline and how it scales to absorb log/trace bursts during incidents without data loss",
+    "R3: The design must address the storage tiering strategy to meet the three different retention windows (15/30/90 days) cost-effectively",
+    "R4: The design must explain how p99 dashboard query latency < 3 seconds is achieved over 90-day metric history",
+    "R5: The design must describe the alerting system: how alert rules are defined, evaluated, and deduplicated to avoid alert storms",
+    "R6: The design must address automatic incident correlation — how the platform groups related signals (a spike in metric X, error rate in service Y, traces with span Z) into one incident context",
+    "R7: The design must cover cardinality management for metrics (high-cardinality label explosions that can crash TSDB systems)",
+    "R8: The design must specify how instrumentation is standardized across 200 services (OpenTelemetry, agent injection, or SDK mandate)",
+    "R9: The design must address the multi-environment separation — how dev/staging noise is isolated from prod alerting",
+    "R10: The design must identify the primary cost driver at this scale and propose a concrete reduction strategy"
+  ]
+}

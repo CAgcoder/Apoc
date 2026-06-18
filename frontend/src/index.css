@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* Neutrals tinted toward a cool indigo (never pure #000/#fff); one accent. */
+:root {
+  color-scheme: dark;
+  --bg: #0c0e16;
+  --ink: #e8e9f0;
+  --accent: #5b8cff;
+}
+html, body, #root { height: 100%; margin: 0; }
+body {
+  /* Atmosphere, not a flat fill. */
+  background:
+    radial-gradient(1100px 700px at 12% -8%, rgba(91,140,255,.10), transparent 60%),
+    radial-gradient(900px 600px at 100% 110%, rgba(120,90,255,.08), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* POC document — generous measure, clear hierarchy (>=1.25 scale steps). */
+.md { max-width: 70ch; }
+.md h2 { font-size: 1.35rem; font-weight: 600; margin: 1.8rem 0 .6rem; color: #f4f5fb;
+  scroll-margin-top: 4.5rem; text-wrap: balance; }
+.md h2:first-child { margin-top: .2rem; }
+.md h3 { font-size: 1.05rem; font-weight: 600; margin: 1.1rem 0 .35rem; color: #d7d9e6; }
+.md p { margin: .55rem 0; line-height: 1.7; color: #b9bcca; text-wrap: pretty; }
+.md ul { margin: .45rem 0; padding-left: 1.3rem; list-style: disc; }
+.md li { margin: .25rem 0; line-height: 1.6; color: #b9bcca; }
+.md li::marker { color: var(--accent); }
+.md code { background: #191c28; padding: .1rem .4rem; border-radius: .3rem; font-size: .85em; }
+.md strong { color: #f4f5fb; font-weight: 600; }
+
+/* --- Review correspondence: review findings <-> document location --------- */
+/* Severity hues shared by the annotation cards and the in-document markers. */
+:root { --sev-block: #f87171; --sev-warn: #fbbf24; --sev-info: #6ea8ff; }
+
+/* A heading the review flagged: dashed underline in the worst severity colour,
+   plus a clickable count badge appended after the text. Reads as "there are
+   findings here" without a side-stripe. */
+.md h2.doc-finding {
+  cursor: pointer;
+  text-decoration: underline dashed var(--finding-color, var(--sev-info));
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+.finding-badge {
+  display: inline-flex; align-items: center; gap: .25rem;
+  margin-left: .55rem; padding: .05rem .5rem;
+  font-size: .7rem; font-weight: 600; line-height: 1.5; vertical-align: middle;
+  border-radius: 999px; cursor: pointer; white-space: nowrap;
+  color: var(--finding-color, var(--sev-info));
+  background: color-mix(in oklab, var(--finding-color, var(--sev-info)) 16%, transparent);
+  border: 1px solid color-mix(in oklab, var(--finding-color, var(--sev-info)) 40%, transparent);
+  transition: background .15s ease;
+}
+.finding-badge:hover { background: color-mix(in oklab, var(--finding-color, var(--sev-info)) 30%, transparent); }
+
+/* The active finding's location: a soft band across the heading + its body,
+   tinted by the accent (full-width, no side-stripe). Pulses once on focus. */
+.md .anno-active {
+  background: rgba(91,140,255,.10);
+  box-shadow: 0 0 0 1px rgba(91,140,255,.18) inset;
+  border-radius: .4rem;
+}
+
+/* Trace: a citation chip just jumped to its source — flash it briefly. */
+.cite-flash { background: rgba(91,140,255,.16); box-shadow: 0 0 0 1px rgba(91,140,255,.3) inset; }
+/* Tables inside the POC document */
+.md table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .9rem; }
+.md th, .md td { border: 1px solid #232838; padding: .45rem .6rem; text-align: left; vertical-align: top; color: #c4c7d4; }
+.md th { background: #161a26; color: #e6e8f1; font-weight: 600; }
+.md tbody tr:nth-child(even) { background: rgba(255,255,255,.015); }
+.md figcaption { color: #aeb2c2; }
+.doc-html:focus { outline-color: var(--accent); }
+
+/* --- GitHub split-diff review layout -------------------------------------- */
+:root {
+  --gh-canvas: #0d1117;
+  --gh-inset: #161b22;
+  --gh-border: #30363d;
+  --gh-fg: #d1d7e0;
+  --gh-muted: #8b949e;
+  --gh-green: #238636;
+  --gh-green-hover: #2ea043;
+  --gh-rule: rgba(255,255,255,.06);
+}
+
+/* Two columns: the left POC document flows continuously (line number + content
+   + human comments), the right column floats each AI comment at the vertical
+   position of the section it reviews, near the matching content. */
+.gh-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 25rem);
+  align-items: start;
+  border: 1px solid var(--gh-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--gh-canvas);
+}
+.gh-doc-col { min-width: 0; }
+.gh-doc-col > .gh-left + .gh-left { border-top: 1px solid var(--gh-rule); }
+
+.gh-anno-col {
+  position: relative;
+  min-width: 0;
+  align-self: stretch;
+  background: #0b0e15;
+  border-left: 1px solid var(--gh-border);
+}
+
+.gh-left {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  position: relative;
+}
+.gh-left-active { background: rgba(91,140,255,.06); }
+
+.gh-num {
+  position: relative;
+  padding: .55rem .25rem 0 0;
+  text-align: right;
+  color: rgba(255,255,255,.25);
+  font: 12px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
+  user-select: none;
+  border-right: 1px solid var(--gh-rule);
+  background: rgba(255,255,255,.012);
+}
+.gh-plus {
+  position: absolute;
+  top: .35rem;
+  right: -.7rem;
+  z-index: 2;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #2f81f7;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(1,4,9,.6);
+}
+.gh-plus:hover { background: #58a6ff; }
+.gh-left:hover .gh-plus { display: flex; }
+
+.gh-content { padding: .25rem .9rem .35rem; min-width: 0; }
+.gh-content .md { max-width: none; }
+.gh-content .md > :first-child { margin-top: .35rem; }
+
+/* A stack of comment cards (AI floated on the right, human under left content). */
+.gh-thread { display: grid; gap: .5rem; }
+.gh-thread.gh-human { margin: .5rem 0 .35rem; }
+.gh-thread.gh-ai {
+  cursor: pointer;
+  padding: 0 .75rem;
+  transition: top .18s cubic-bezier(.22,1,.36,1);
+}
+.gh-thread.gh-ai .gh-comment { transition: box-shadow .15s ease; }
+.gh-ai-active .gh-comment { box-shadow: 0 0 0 2px rgba(91,140,255,.5); }
+
+.gh-comment {
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
+  background: var(--gh-canvas);
+  overflow: hidden;
+}
+.gh-comment-closed { opacity: .55; }
+.gh-comment-head {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .5rem .75rem;
+  background: var(--gh-inset);
+  border-bottom: 1px solid var(--gh-border);
+  font-size: .8rem; color: var(--gh-muted);
+}
+.gh-comment-head b { color: #e6edf3; font-weight: 600; }
+.gh-comment-head .gh-spacer { margin-left: auto; }
+.gh-comment-body { padding: .65rem .85rem; color: var(--gh-fg); font-size: .9rem; line-height: 1.65; }
+.gh-comment-body > :first-child { margin-top: 0; }
+.gh-comment-body > :last-child { margin-bottom: 0; }
+.gh-comment-body p { margin: .4rem 0; color: var(--gh-fg); }
+.gh-comment-body strong { color: #e6edf3; }
+.gh-comment-title { font-weight: 600; color: #e6edf3; margin-bottom: .2rem; }
+.gh-suggestion {
+  margin-top: .5rem; border: 1px solid var(--gh-border); border-radius: 6px;
+  background: rgba(110,118,129,.1); overflow: hidden;
+}
+.gh-suggestion-label {
+  padding: .25rem .6rem; font-size: .7rem; color: var(--gh-muted);
+  background: var(--gh-inset); border-bottom: 1px solid var(--gh-border);
+}
+.gh-suggestion-body { padding: .45rem .6rem; font: .8rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--gh-fg); white-space: pre-wrap; }
+
+.gh-avatar {
+  width: 1.6rem; height: 1.6rem; border-radius: 999px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, #4b5563, #6b7280);
+}
+.gh-avatar-bot { border-radius: 6px; background: linear-gradient(135deg, #1f6feb, #6e40c9); }
+
+.gh-label {
+  display: inline-flex; align-items: center; height: 1.25rem; padding: 0 .55rem;
+  border-radius: 999px; font-size: .67rem; font-weight: 600;
+  border: 1px solid transparent; text-transform: capitalize;
+}
+.gh-label-block { color: #ff7b72; border-color: rgba(248,81,73,.4); background: rgba(248,81,73,.12); }
+.gh-label-warn  { color: #e3b341; border-color: rgba(210,153,34,.4); background: rgba(210,153,34,.12); }
+.gh-label-info  { color: #58a6ff; border-color: rgba(56,139,253,.4); background: rgba(56,139,253,.12); }
+.gh-dot { width: .5rem; height: .5rem; border-radius: 999px; display: inline-block; flex: none; }
+
+/* Inline composer host inserted after a line. */
+.mermaid-block { margin: .9rem 0; }
+.mermaid-block svg { max-width: 100%; height: auto; }
+
+.diff-view {
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 50dvh;
+  font: .78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--gh-canvas);
+}
+.diff-row { display: flex; white-space: pre-wrap; }
+.diff-gutter { width: 1.4rem; flex: none; text-align: center; color: var(--gh-muted); user-select: none; }
+.diff-text { flex: 1; padding-right: .6rem; word-break: break-word; }
+.diff-add { background: rgba(46,160,67,.15); }
+.diff-add .diff-gutter { color: #3fb950; }
+.diff-remove { background: rgba(248,81,73,.15); }
+.diff-remove .diff-gutter { color: #f85149; }
+.diff-context { color: var(--gh-fg); }

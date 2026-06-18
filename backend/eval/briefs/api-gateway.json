@@ -1,0 +1,16 @@
+{
+  "slug": "api-gateway",
+  "brief_text": "We need an API gateway to sit in front of 60 microservices and expose a unified API surface to external clients (mobile apps, third-party integrations). The gateway must enforce per-client rate limiting, authenticate via API keys and JWTs, route and transform requests, and provide a developer portal with OpenAPI documentation and key management. We handle 20,000 RPS at peak and have a strict 10 ms overhead budget for the gateway itself.",
+  "checklist": [
+    "R1: The design must address per-client rate limiting at 20,000 RPS with a concrete algorithm (token bucket, sliding window) and distributed state store",
+    "R2: The design must specify how the 10 ms gateway overhead budget is achieved and what operations are on the critical path",
+    "R3: The design must describe API key and JWT authentication, including key rotation and JWT validation without per-request upstream calls",
+    "R4: The design must cover request routing to 60 microservices, including how routing rules are updated without gateway restart",
+    "R5: The design must address request/response transformation (e.g., header injection, field mapping) without violating the latency budget",
+    "R6: The design must describe the developer portal: how OpenAPI specs are published and how third parties self-serve API keys",
+    "R7: The design must address circuit breaking for upstream microservices and how the gateway behaves during a downstream outage",
+    "R8: The design must specify the observability strategy: which per-route metrics are emitted and how abuse is detected",
+    "R9: The design must identify a single point of failure in the gateway path and explain how it is mitigated",
+    "R10: The design must discuss the build-vs-buy decision for the gateway core (e.g., Kong, Envoy, custom)"
+  ]
+}

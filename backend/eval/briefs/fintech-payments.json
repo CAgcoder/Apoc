@@ -1,0 +1,16 @@
+{
+  "slug": "fintech-payments",
+  "brief_text": "We need a payment processing microservice that handles card-not-present transactions for our e-commerce platform. The service must process ~5,000 TPS at peak, integrate with Stripe and Adyen as PSPs, and comply with PCI-DSS Level 1. Charge-backs and refunds must be handled asynchronously. The team is 4 engineers and the target is GA in 6 months.",
+  "checklist": [
+    "R1: The design must specify a concrete idempotency mechanism to prevent duplicate charges on retry",
+    "R2: The design must address PCI-DSS Level 1 compliance, including cardholder data isolation",
+    "R3: The design must describe how the service achieves 5,000 TPS at peak (horizontal scaling, caching, or sharding strategy)",
+    "R4: The design must cover integration with at least two PSPs and describe the failover/fallback behavior between them",
+    "R5: The design must address asynchronous chargeback and refund processing, including state machine or workflow",
+    "R6: The design must specify the data persistence strategy for transaction records, including consistency guarantees",
+    "R7: The design must identify at least two key operational risks and provide concrete mitigations",
+    "R8: The design must include a cost model or cost considerations for PSP fees, infrastructure, or compliance overhead",
+    "R9: The design must address observability: which metrics are emitted and how anomalies trigger alerts",
+    "R10: The design must discuss at least one explicit trade-off made in the architecture (e.g., consistency vs. availability)"
+  ]
+}
